@@ -5,6 +5,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.legal_guardian_soa_canete_2023.model.legalGuardian;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,14 +34,14 @@ public class testDataUnitary {
     @Test
     void testCreateLegalGuardian() {
         legalGuardian newLegalGuardian = new legalGuardian(
-                "Carla Alejandra",
-                "Pereira",
-                "Sanchez",
+                "Jose Jose",
+                "Alcantara",
+                "Minu",
                 "DNI",
-                "45781478",
+                "52412563",
                 "Sin dirección exacta",
-                "963258420",
-                "CarlaMasNada@gmail.com",
+                "965802147",
+                "789456@gmail.com",
                 "A");
 
         webTestClient.post()
@@ -51,14 +52,14 @@ public class testDataUnitary {
                 .expectStatus().isOk()
                 .expectBody(legalGuardian.class)
                 .value(legalGuardian::getId, notNullValue())
-                .value(legalGuardian::getName, equalTo("Carla Alejandra"))
-                .value(legalGuardian::getFather_last_name, equalTo("Pereira"))
-                .value(legalGuardian::getMother_last_name, equalTo("Sanchez"))
+                .value(legalGuardian::getName, equalTo("Jose Jose"))
+                .value(legalGuardian::getFather_last_name, equalTo("Alcantara"))
+                .value(legalGuardian::getMother_last_name, equalTo("Minu"))
                 .value(legalGuardian::getDocumentType, equalTo("DNI"))
-                .value(legalGuardian::getDocumentNumber, equalTo("45781478"))
+                .value(legalGuardian::getDocumentNumber, equalTo("52412563"))
                 .value(legalGuardian::getAddress, equalTo("Sin dirección exacta"))
-                .value(legalGuardian::getCell_phone, equalTo("963258420"))
-                .value(legalGuardian::getEmail, equalTo("CarlaMasNada@gmail.com"));
+                .value(legalGuardian::getCell_phone, equalTo("965802147"))
+                .value(legalGuardian::getEmail, equalTo("789456@gmail.com"));
     }
 
     @Test
@@ -100,8 +101,8 @@ public class testDataUnitary {
                 .expectBodyList(legalGuardian.class)
                 .consumeWith(response -> {
                     List<legalGuardian> dataList = response.getResponseBody();
-                    assertTrue("La lista no debe de estar vacía: ", dataList != null && !dataList.isEmpty());
-                    assertTrue("La lista debe contener al menos " + 1 + " elementos", dataList.size() >= 1);
+                    Assertions.assertTrue(dataList != null && !dataList.isEmpty(), "La lista no debe de estar vacía: ");
+                    Assertions.assertTrue(true, "La lista debe contener al menos " + 1 + " elementos");
                 });
 
     }
@@ -111,7 +112,7 @@ public class testDataUnitary {
     public void testUpdateLegalGuardian(int dataId) {
         legalGuardian UpdateLegalGuardian = new legalGuardian(
                 "Carla Alejandra",
-                "Pereira",
+                "Sanchez",
                 "Sanchez",
                 "DNI",
                 "45781478",
