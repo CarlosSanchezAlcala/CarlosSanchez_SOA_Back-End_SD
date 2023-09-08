@@ -73,7 +73,9 @@ public class testDataUnitary {
                     List<legalGuardian> dataList = response.getResponseBody();
                     assertTrue("La lista no debe de estar vacía: ", dataList != null && !dataList.isEmpty());
                     assertTrue("La lista debe contener al menos " + 1 + " elementos", dataList.size() >= 1);
+                    System.out.println(dataList);
                 });
+
 
     }
 
