@@ -1,7 +1,8 @@
-package com.legal_guardian_soa_canete_2023.controller;
+package com.legal_guardian_soa_canete_2023.web;
 
 import com.legal_guardian_soa_canete_2023.model.adolescent;
-import com.legal_guardian_soa_canete_2023.repository.adolescentRepository;
+import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -11,14 +12,11 @@ import java.util.Comparator;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping("/api/adolescentData")
-public class adolescentController {
+@RequiredArgsConstructor
+public class AdolescentController {
 
     final
-    adolescentRepository adolescentRepository;
-
-    public adolescentController(adolescentRepository adolescentRepository) {
-        this.adolescentRepository = adolescentRepository;
-    }
+    AdolescentRepository adolescentRepository;
 
     @GetMapping("/infoAdolescent")
     public String informationAdolescent () {

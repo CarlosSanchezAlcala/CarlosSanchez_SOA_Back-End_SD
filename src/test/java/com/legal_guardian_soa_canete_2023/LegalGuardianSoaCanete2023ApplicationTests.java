@@ -1,7 +1,7 @@
 package com.legal_guardian_soa_canete_2023;
 
 import com.legal_guardian_soa_canete_2023.model.legalGuardian;
-import com.legal_guardian_soa_canete_2023.repository.legalGuardianRepository;
+import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 class LegalGuardianSoaCanete2023ApplicationTests {
 
     @Autowired
-    legalGuardianRepository legalGuardianRepository;
+    LegalGuardianRepository legalGuardianRepository;
 
     @Autowired
     private WebTestClient webTestClient;
