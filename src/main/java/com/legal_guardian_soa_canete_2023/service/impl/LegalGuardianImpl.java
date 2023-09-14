@@ -36,6 +36,22 @@ public class LegalGuardianImpl implements LegalGuardianService {
     }
 
     @Override
+    public Flux<LegalGuardianResponseDto> findAllActive() {
+        return this.legalGuardianRepository.findAll()
+                .sort(Comparator.comparing(LegalGuardian::getId))
+                .filter(dLog -> dLog.getActive().equals("A"))
+                .map(LegalGuardianMapper::toDto);
+    }
+
+    @Override
+    public Flux<LegalGuardianResponseDto> findAllInactive() {
+        return this.legalGuardianRepository.findAll()
+                .sort(Comparator.comparing(LegalGuardian::getId))
+                .filter(dLog -> dLog.getActive().equals("I"))
+                .map(LegalGuardianMapper::toDto);
+    }
+
+    @Override
     public Mono<LegalGuardianResponseDto> saveNewLegalGuardian(LegalGuardianRequestDto request) {
         return this.legalGuardianRepository.save(toModel(request))
                 .map(LegalGuardianMapper::toDto);
@@ -73,16 +89,7 @@ public class LegalGuardianImpl implements LegalGuardianService {
 
     @Override
     public Mono<Void> deleteLegalGuardian(Integer id) {
-        return null;
+        return this.legalGuardianRepository.deleteById(id);
     }
 
-    @Override
-    public Flux<LegalGuardianResponseDto> findAllActive() {
-        return null;
-    }
-
-    @Override
-    public Flux<LegalGuardianResponseDto> findAllInactive() {
-        return null;
-    }
 }

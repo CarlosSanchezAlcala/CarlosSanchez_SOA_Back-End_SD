@@ -11,12 +11,12 @@ public interface LegalGuardianService {
 
     Mono<LegalGuardianResponseDto> findById(Integer id);
     Flux<LegalGuardianResponseDto> findAll();
+    Flux<LegalGuardianResponseDto> findAllActive();
+    Flux<LegalGuardianResponseDto> findAllInactive();
     Mono<LegalGuardianResponseDto> saveNewLegalGuardian(LegalGuardianRequestDto request);
     Mono<LegalGuardianResponseDto> updateLegalGuardian(LegalGuardianRequestDto request, Integer id);
     Mono<LegalGuardianResponseDto> deleteLogicalLegalGuardian(Integer id);
     Mono<LegalGuardianResponseDto> reactiveLogicalLegalGuardian(Integer id);
     Mono<Void> deleteLegalGuardian(Integer id);
-    Flux<LegalGuardianResponseDto> findAllActive();
-    Flux<LegalGuardianResponseDto> findAllInactive();
 
 }

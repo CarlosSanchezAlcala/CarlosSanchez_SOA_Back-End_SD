@@ -29,17 +29,13 @@ public class LegalGuardianController {
     }
 
     @GetMapping("/list/active")
-    public Flux<LegalGuardian> getLegalGuardianActive() {
-        return legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(LegalGuardian::getId))
-                .filter(dLog -> dLog.getActive().equals("A"));
+    public Flux<LegalGuardianResponseDto> getLegalGuardianActive() {
+        return this.legalGuardianService.findAllActive();
     }
 
     @GetMapping("/list/inactive")
-    public Flux<LegalGuardian> getLegalGuardianInactive() {
-        return legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(LegalGuardian::getId))
-                .filter(dLog -> dLog.getActive().equals("I"));
+    public Flux<LegalGuardianResponseDto> getLegalGuardianInactive() {
+        return this.legalGuardianService.findAllInactive();
     }
 
     @GetMapping("/{idLegalGuardian}")
@@ -74,7 +70,7 @@ public class LegalGuardianController {
     }
 
     @DeleteMapping("/{idLegalGuardian}")
-    public Mono<Void> deleteLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
-        return legalGuardianRepository.deleteById(idLegalGuardian);
+    public Mono<Void> deleteLegalGuardian(@PathVariable Integer idLegalGuardian) {
+        return this.legalGuardianService.deleteLegalGuardian(idLegalGuardian);
     }
 }
