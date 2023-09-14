@@ -59,37 +59,18 @@ public class LegalGuardianController {
     }
 
     @PutMapping("/{idLegalGuardian}")
-    public Mono<LegalGuardian> updateLegalGuardian(@RequestBody LegalGuardian legalGuardian, @PathVariable("idLegalGuardian") int idLegalGuardian) {
-        return legalGuardianRepository.findById(idLegalGuardian)
-                .map((lG) -> {
-                    lG.setName(legalGuardian.getName());
-                    lG.setFather_last_name(legalGuardian.getFather_last_name());
-                    lG.setMother_last_name(legalGuardian.getMother_last_name());
-                    lG.setDocumentType(legalGuardian.getDocumentType());
-                    lG.setDocumentNumber(legalGuardian.getDocumentNumber());
-                    lG.setAddress(legalGuardian.getAddress());
-                    lG.setCell_phone(legalGuardian.getCell_phone());
-                    lG.setEmail(legalGuardian.getEmail());
-                    return lG;
-                }).flatMap(legalGuardianRepository::save);
+    public Mono<LegalGuardianResponseDto> updateLegalGuardian(@RequestBody LegalGuardianRequestDto dto, @PathVariable Integer idLegalGuardian) {
+        return this.legalGuardianService.updateLegalGuardian(dto, idLegalGuardian);
     }
 
     @PutMapping("/deletedLogical/{idLegalGuardian}")
-    public Mono<LegalGuardian> deletedLogicalLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
-        return legalGuardianRepository.findById(idLegalGuardian)
-                .map((dLog) -> {
-                    dLog.setActive("I");
-                    return dLog;
-                }).flatMap(legalGuardianRepository::save);
+    public Mono<LegalGuardianResponseDto> deletedLogicalLegalGuardian(@PathVariable Integer idLegalGuardian) {
+        return this.legalGuardianService.deleteLogicalLegalGuardian(idLegalGuardian);
     }
 
     @PutMapping("/reactivateLogical/{idLegalGuardian}")
-    public Mono<LegalGuardian> reactivateLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
-        return legalGuardianRepository.findById(idLegalGuardian)
-                .map((dLog) -> {
-                    dLog.setActive("A");
-                    return dLog;
-                }).flatMap(legalGuardianRepository::save);
+        public Mono<LegalGuardianResponseDto> reactivateLegalGuardian(@PathVariable Integer idLegalGuardian) {
+        return this.legalGuardianService.reactiveLogicalLegalGuardian(idLegalGuardian);
     }
 
     @DeleteMapping("/{idLegalGuardian}")

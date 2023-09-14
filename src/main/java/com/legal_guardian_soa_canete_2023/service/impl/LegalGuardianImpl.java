@@ -4,6 +4,7 @@ import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianRequestDto;
 import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianResponseDto;
 import com.legal_guardian_soa_canete_2023.domain.mapper.LegalGuardianMapper;
 import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
+import com.legal_guardian_soa_canete_2023.exception.ResourceNotFoundException;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import com.legal_guardian_soa_canete_2023.service.LegalGuardianService;
 import lombok.RequiredArgsConstructor;
@@ -42,17 +43,32 @@ public class LegalGuardianImpl implements LegalGuardianService {
 
     @Override
     public Mono<LegalGuardianResponseDto> updateLegalGuardian(LegalGuardianRequestDto request, Integer id) {
-        return null;
+        return this.legalGuardianRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException("El identificador:" + id +"no fue encontrado")))
+                .flatMap(dataLegal -> this.legalGuardianRepository.save(toModel(request, dataLegal.getId())))
+                .map(LegalGuardianMapper::toDto);
     }
 
     @Override
     public Mono<LegalGuardianResponseDto> deleteLogicalLegalGuardian(Integer id) {
-        return null;
+        return this.legalGuardianRepository.findById(id)
+                .map((delete) -> {
+                    delete.setActive("I");
+                    return delete;
+                })
+                .flatMap(legalGuardianRepository::save)
+                .map(LegalGuardianMapper::toDto);
     }
 
     @Override
     public Mono<LegalGuardianResponseDto> reactiveLogicalLegalGuardian(Integer id) {
-        return null;
+        return this.legalGuardianRepository.findById(id)
+                .map((reactive) -> {
+                    reactive.setActive("A");
+                    return reactive;
+                })
+                .flatMap(legalGuardianRepository::save)
+                .map(LegalGuardianMapper::toDto);
     }
 
     @Override
