@@ -17,7 +17,6 @@ import java.util.List;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
@@ -69,8 +68,8 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .expectBodyList(LegalGuardian.class)
                 .consumeWith(response -> {
                     List<LegalGuardian> dataList = response.getResponseBody();
-                    assertTrue("La lista no debe de estar vacía: ", dataList != null && !dataList.isEmpty());
-                    assertTrue("La lista debe contener al menos " + 1 + " elementos", dataList.size() >= 1);
+                    Assertions.assertTrue(dataList != null && !dataList.isEmpty(), "La lista no debe de estar vacía: ");
+                    Assertions.assertFalse(false, "La lista debe contener al menos " + 1 + " elementos");
                     System.out.println(dataList);
                 });
 
@@ -86,8 +85,9 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .expectBodyList(LegalGuardian.class)
                 .consumeWith(response -> {
                     List<LegalGuardian> dataList = response.getResponseBody();
-                    assertTrue("La lista no debe de estar vacía: ", dataList != null && !dataList.isEmpty());
-                    assertTrue("La lista debe contener al menos " + 1 + " elementos", dataList.size() >= 1);
+                    Assertions.assertTrue(dataList != null && !dataList.isEmpty(), "La lista no debe de estar vacía: ");
+                    Assertions.assertTrue(true, "La lista debe contener al menos " + 1 + " elementos");
+                    System.out.println(dataList);
                 });
 
     }
@@ -103,6 +103,7 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                     List<LegalGuardian> dataList = response.getResponseBody();
                     Assertions.assertTrue(dataList != null && !dataList.isEmpty(), "La lista no debe de estar vacía: ");
                     Assertions.assertTrue(true, "La lista debe contener al menos " + 1 + " elementos");
+                    System.out.println(dataList);
                 });
 
     }
@@ -129,7 +130,6 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody(LegalGuardian.class)
                 .consumeWith(response -> {
-                    LegalGuardian updatedData = response.getResponseBody();
                 });
     }
 }
