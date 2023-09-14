@@ -1,8 +1,12 @@
 package com.legal_guardian_soa_canete_2023.web;
 
+import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianResponseDto;
 import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
+import com.legal_guardian_soa_canete_2023.service.LegalGuardianService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,13 +19,13 @@ import java.util.Comparator;
 @RequiredArgsConstructor
 public class LegalGuardianController {
 
-    final
-    LegalGuardianRepository legalGuardianRepository;
+    final LegalGuardianService legalGuardianService;
+
+    final LegalGuardianRepository legalGuardianRepository;
 
     @GetMapping("/list")
-    public Flux<LegalGuardian> getLegalGuardian() {
-        return legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(LegalGuardian::getId));
+    public Flux<LegalGuardianResponseDto> getLegalGuardian() {
+        return this.legalGuardianService.findAll();
     }
 
     @GetMapping("/list/active")
@@ -39,8 +43,8 @@ public class LegalGuardianController {
     }
 
     @GetMapping("/{idLegalGuardian}")
-    public Mono<LegalGuardian> getLegalGuardianForId(@PathVariable("idLegalGuardian") int idLegalGuardian) {
-        return legalGuardianRepository.findById(idLegalGuardian);
+    public Mono<LegalGuardianResponseDto> getLegalGuardianForId(@PathVariable Integer idLegalGuardian) {
+        return this.legalGuardianService.findById(idLegalGuardian);
     }
 
     @GetMapping("/info")
@@ -48,9 +52,10 @@ public class LegalGuardianController {
         return "Carlos Sanchez Alcala - Legal Guardian - SOA - 2023";
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Mono<LegalGuardian> saveLegalGuardian(@RequestBody LegalGuardian legalGuardian) {
-        return legalGuardianRepository.save(legalGuardian);
+    public Mono<LegalGuardianResponseDto> saveLegalGuardian(@RequestBody LegalGuardianRequestDto dto) {
+        return this.legalGuardianService.saveNewLegalGuardian(dto);
     }
 
     @PutMapping("/{idLegalGuardian}")
