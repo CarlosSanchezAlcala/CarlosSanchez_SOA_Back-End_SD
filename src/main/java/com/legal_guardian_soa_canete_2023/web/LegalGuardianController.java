@@ -1,6 +1,6 @@
 package com.legal_guardian_soa_canete_2023.web;
 
-import com.legal_guardian_soa_canete_2023.model.legalGuardian;
+import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,27 +19,27 @@ public class LegalGuardianController {
     LegalGuardianRepository legalGuardianRepository;
 
     @GetMapping("/list")
-    public Flux<legalGuardian> getLegalGuardian() {
+    public Flux<LegalGuardian> getLegalGuardian() {
         return legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(legalGuardian::getId));
+                .sort(Comparator.comparing(LegalGuardian::getId));
     }
 
     @GetMapping("/list/active")
-    public Flux<legalGuardian> getLegalGuardianActive() {
+    public Flux<LegalGuardian> getLegalGuardianActive() {
         return legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(legalGuardian::getId))
+                .sort(Comparator.comparing(LegalGuardian::getId))
                 .filter(dLog -> dLog.getActive().equals("A"));
     }
 
     @GetMapping("/list/inactive")
-    public Flux<legalGuardian> getLegalGuardianInactive() {
+    public Flux<LegalGuardian> getLegalGuardianInactive() {
         return legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(legalGuardian::getId))
+                .sort(Comparator.comparing(LegalGuardian::getId))
                 .filter(dLog -> dLog.getActive().equals("I"));
     }
 
     @GetMapping("/{idLegalGuardian}")
-    public Mono<legalGuardian> getLegalGuardianForId(@PathVariable("idLegalGuardian") int idLegalGuardian) {
+    public Mono<LegalGuardian> getLegalGuardianForId(@PathVariable("idLegalGuardian") int idLegalGuardian) {
         return legalGuardianRepository.findById(idLegalGuardian);
     }
 
@@ -49,12 +49,12 @@ public class LegalGuardianController {
     }
 
     @PostMapping
-    public Mono<legalGuardian> saveLegalGuardian(@RequestBody legalGuardian legalGuardian) {
+    public Mono<LegalGuardian> saveLegalGuardian(@RequestBody LegalGuardian legalGuardian) {
         return legalGuardianRepository.save(legalGuardian);
     }
 
     @PutMapping("/{idLegalGuardian}")
-    public Mono<legalGuardian> updateLegalGuardian(@RequestBody legalGuardian legalGuardian, @PathVariable("idLegalGuardian") int idLegalGuardian) {
+    public Mono<LegalGuardian> updateLegalGuardian(@RequestBody LegalGuardian legalGuardian, @PathVariable("idLegalGuardian") int idLegalGuardian) {
         return legalGuardianRepository.findById(idLegalGuardian)
                 .map((lG) -> {
                     lG.setName(legalGuardian.getName());
@@ -70,7 +70,7 @@ public class LegalGuardianController {
     }
 
     @PutMapping("/deletedLogical/{idLegalGuardian}")
-    public Mono<legalGuardian> deletedLogicalLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
+    public Mono<LegalGuardian> deletedLogicalLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
         return legalGuardianRepository.findById(idLegalGuardian)
                 .map((dLog) -> {
                     dLog.setActive("I");
@@ -79,7 +79,7 @@ public class LegalGuardianController {
     }
 
     @PutMapping("/reactivateLogical/{idLegalGuardian}")
-    public Mono<legalGuardian> reactivateLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
+    public Mono<LegalGuardian> reactivateLegalGuardian(@PathVariable("idLegalGuardian") int idLegalGuardian) {
         return legalGuardianRepository.findById(idLegalGuardian)
                 .map((dLog) -> {
                     dLog.setActive("A");

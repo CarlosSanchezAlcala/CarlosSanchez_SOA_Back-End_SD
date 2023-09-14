@@ -1,6 +1,6 @@
 package com.legal_guardian_soa_canete_2023.web;
 
-import com.legal_guardian_soa_canete_2023.model.adolescent;
+import com.legal_guardian_soa_canete_2023.domain.model.Adolescent;
 import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +24,13 @@ public class AdolescentController {
     }
 
     @GetMapping("/listData")
-    public Flux<adolescent> getAdolescent() {
+    public Flux<Adolescent> getAdolescent() {
         return adolescentRepository.findAll()
-                .sort(Comparator.comparing(adolescent::getId));
+                .sort(Comparator.comparing(Adolescent::getId));
     }
 
     @PostMapping
-    public Mono<adolescent> saveAdolescentData(@RequestBody adolescent adolescent) {
+    public Mono<Adolescent> saveAdolescentData(@RequestBody Adolescent adolescent) {
         return adolescentRepository.save(adolescent);
     }
 

@@ -1,4 +1,4 @@
-package com.legal_guardian_soa_canete_2023.model;
+package com.legal_guardian_soa_canete_2023.domain.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("adolescent_data")
 @Data
-public class adolescent {
+public class Adolescent {
     @Id
     private Integer id;
     @Column
@@ -29,7 +29,7 @@ public class adolescent {
     @Column
     private String active;
 
-    public adolescent(String name, String father_last_name, String mother_last_name, String documentType, String documentNumber, String address, String cell_phone, String email, String active) {
+    public Adolescent(String name, String father_last_name, String mother_last_name, String documentType, String documentNumber, String address, String cell_phone, String email, String active) {
         this.name = name;
         this.father_last_name = father_last_name;
         this.mother_last_name = mother_last_name;

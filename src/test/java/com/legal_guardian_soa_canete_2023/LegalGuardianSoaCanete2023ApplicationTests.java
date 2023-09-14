@@ -1,6 +1,6 @@
 package com.legal_guardian_soa_canete_2023;
 
-import com.legal_guardian_soa_canete_2023.model.legalGuardian;
+import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class LegalGuardianSoaCanete2023ApplicationTests {
 
     @Test
     void testCreateLegalGuardian() {
-        legalGuardian newLegalGuardian = new legalGuardian(
+        LegalGuardian newLegalGuardian = new LegalGuardian(
                 "Jose Jose",
                 "Alcantara",
                 "Minu",
@@ -45,19 +45,19 @@ class LegalGuardianSoaCanete2023ApplicationTests {
         webTestClient.post()
                 .uri("/api/legalGuardian")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(newLegalGuardian), legalGuardian.class)
+                .body(Mono.just(newLegalGuardian), LegalGuardian.class)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(legalGuardian.class)
-                .value(legalGuardian::getId, notNullValue())
-                .value(legalGuardian::getName, equalTo("Jose Jose"))
-                .value(legalGuardian::getFather_last_name, equalTo("Alcantara"))
-                .value(legalGuardian::getMother_last_name, equalTo("Minu"))
-                .value(legalGuardian::getDocumentType, equalTo("DNI"))
-                .value(legalGuardian::getDocumentNumber, equalTo("52412563"))
-                .value(legalGuardian::getAddress, equalTo("Sin dirección exacta"))
-                .value(legalGuardian::getCell_phone, equalTo("965802147"))
-                .value(legalGuardian::getEmail, equalTo("789456@gmail.com"));
+                .expectBody(LegalGuardian.class)
+                .value(LegalGuardian::getId, notNullValue())
+                .value(LegalGuardian::getName, equalTo("Jose Jose"))
+                .value(LegalGuardian::getFather_last_name, equalTo("Alcantara"))
+                .value(LegalGuardian::getMother_last_name, equalTo("Minu"))
+                .value(LegalGuardian::getDocumentType, equalTo("DNI"))
+                .value(LegalGuardian::getDocumentNumber, equalTo("52412563"))
+                .value(LegalGuardian::getAddress, equalTo("Sin dirección exacta"))
+                .value(LegalGuardian::getCell_phone, equalTo("965802147"))
+                .value(LegalGuardian::getEmail, equalTo("789456@gmail.com"));
     }
 
     @Test
@@ -66,9 +66,9 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBodyList(legalGuardian.class)
+                .expectBodyList(LegalGuardian.class)
                 .consumeWith(response -> {
-                    List<legalGuardian> dataList = response.getResponseBody();
+                    List<LegalGuardian> dataList = response.getResponseBody();
                     assertTrue("La lista no debe de estar vacía: ", dataList != null && !dataList.isEmpty());
                     assertTrue("La lista debe contener al menos " + 1 + " elementos", dataList.size() >= 1);
                     System.out.println(dataList);
@@ -83,9 +83,9 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBodyList(legalGuardian.class)
+                .expectBodyList(LegalGuardian.class)
                 .consumeWith(response -> {
-                    List<legalGuardian> dataList = response.getResponseBody();
+                    List<LegalGuardian> dataList = response.getResponseBody();
                     assertTrue("La lista no debe de estar vacía: ", dataList != null && !dataList.isEmpty());
                     assertTrue("La lista debe contener al menos " + 1 + " elementos", dataList.size() >= 1);
                 });
@@ -98,9 +98,9 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBodyList(legalGuardian.class)
+                .expectBodyList(LegalGuardian.class)
                 .consumeWith(response -> {
-                    List<legalGuardian> dataList = response.getResponseBody();
+                    List<LegalGuardian> dataList = response.getResponseBody();
                     Assertions.assertTrue(dataList != null && !dataList.isEmpty(), "La lista no debe de estar vacía: ");
                     Assertions.assertTrue(true, "La lista debe contener al menos " + 1 + " elementos");
                 });
@@ -110,7 +110,7 @@ class LegalGuardianSoaCanete2023ApplicationTests {
     @ParameterizedTest
     @ValueSource(ints = {21})
     public void testUpdateLegalGuardian(int dataId) {
-        legalGuardian UpdateLegalGuardian = new legalGuardian(
+        LegalGuardian UpdateLegalGuardian = new LegalGuardian(
                 "Carla Alejandra",
                 "Sanchez",
                 "Sanchez",
@@ -127,9 +127,9 @@ class LegalGuardianSoaCanete2023ApplicationTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody(legalGuardian.class)
+                .expectBody(LegalGuardian.class)
                 .consumeWith(response -> {
-                    legalGuardian updatedData = response.getResponseBody();
+                    LegalGuardian updatedData = response.getResponseBody();
                 });
     }
 }

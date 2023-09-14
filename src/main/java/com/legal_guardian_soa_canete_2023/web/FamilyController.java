@@ -1,7 +1,7 @@
 package com.legal_guardian_soa_canete_2023.web;
 
-import com.legal_guardian_soa_canete_2023.model.family;
-import com.legal_guardian_soa_canete_2023.model.familyDetails;
+import com.legal_guardian_soa_canete_2023.domain.model.Family;
+import com.legal_guardian_soa_canete_2023.domain.model.FamilyDetails;
 import com.legal_guardian_soa_canete_2023.repository.FamilyRepository;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
@@ -30,19 +30,19 @@ public class FamilyController {
     }
 
     @PostMapping
-    public Mono<family> saveNewFamily(@RequestBody family family) {
+    public Mono<Family> saveNewFamily(@RequestBody Family family) {
         return familyRepository.save(family);
     }
 
     @GetMapping("/list/data/family")
-    public Flux<family> getDataInfoFamily() {
+    public Flux<Family> getDataInfoFamily() {
         return familyRepository.findAll()
-                .sort(Comparator.comparing(family::getId));
+                .sort(Comparator.comparing(Family::getId));
     }
 
     @GetMapping("/list/dataDetails/familyDetails")
-    public Flux<familyDetails> getDataDetailsFamily() {
+    public Flux<FamilyDetails> getDataDetailsFamily() {
         return familyDetailsRepository.findAll()
-                .sort(Comparator.comparing(familyDetails::getId));
+                .sort(Comparator.comparing(FamilyDetails::getId));
     }
 }
