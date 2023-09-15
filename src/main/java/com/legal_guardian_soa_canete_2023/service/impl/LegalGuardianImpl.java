@@ -1,7 +1,7 @@
 package com.legal_guardian_soa_canete_2023.service.impl;
 
-import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianRequestDto;
-import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianResponseDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianResponseDto;
 import com.legal_guardian_soa_canete_2023.domain.mapper.LegalGuardianMapper;
 import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
 import com.legal_guardian_soa_canete_2023.exception.ResourceNotFoundException;
@@ -39,7 +39,7 @@ public class LegalGuardianImpl implements LegalGuardianService {
     public Flux<LegalGuardianResponseDto> findAllActive() {
         return this.legalGuardianRepository.findAll()
                 .sort(Comparator.comparing(LegalGuardian::getId))
-                .filter(dLog -> dLog.getActive().equals("A"))
+                .filter(active -> active.getActive().equals("A"))
                 .map(LegalGuardianMapper::toDto);
     }
 
@@ -47,7 +47,7 @@ public class LegalGuardianImpl implements LegalGuardianService {
     public Flux<LegalGuardianResponseDto> findAllInactive() {
         return this.legalGuardianRepository.findAll()
                 .sort(Comparator.comparing(LegalGuardian::getId))
-                .filter(dLog -> dLog.getActive().equals("I"))
+                .filter(inactive -> inactive.getActive().equals("I"))
                 .map(LegalGuardianMapper::toDto);
     }
 

@@ -1,16 +1,16 @@
 package com.legal_guardian_soa_canete_2023.domain.mapper;
 
-import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianRequestDto;
-import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianResponseDto;
-import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
+import com.legal_guardian_soa_canete_2023.domain.dto.adolescentDto.AdolescentRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.adolescentDto.AdolescentResponseDto;
+import com.legal_guardian_soa_canete_2023.domain.model.Adolescent;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LegalGuardianMapper {
+public class AdolescentMapper {
 
-    public static LegalGuardian toModel(LegalGuardianRequestDto dto) {
-        return new LegalGuardian(
+    public static Adolescent toModel(AdolescentRequestDto dto) {
+        return new Adolescent(
                 dto.getName(),
                 dto.getFather_last_name(),
                 dto.getMother_last_name(),
@@ -23,8 +23,8 @@ public class LegalGuardianMapper {
         );
     }
 
-    public static LegalGuardian toModel(LegalGuardianRequestDto dto, Integer id) {
-        return new LegalGuardian(
+    public static Adolescent toModel(AdolescentRequestDto dto, Integer id) {
+        return new Adolescent(
                 id,
                 dto.getName(),
                 dto.getFather_last_name(),
@@ -38,8 +38,8 @@ public class LegalGuardianMapper {
         );
     }
 
-    public static LegalGuardianResponseDto toDto(LegalGuardian model) {
-        return new LegalGuardianResponseDto(
+    public static AdolescentResponseDto toDto(Adolescent model) {
+        return new AdolescentResponseDto(
                 model.getId(),
                 model.getName(),
                 model.getFather_last_name(),
@@ -52,4 +52,5 @@ public class LegalGuardianMapper {
                 model.getActive()
         );
     }
+
 }

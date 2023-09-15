@@ -1,8 +1,7 @@
 package com.legal_guardian_soa_canete_2023.web;
 
-import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianRequestDto;
-import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianResponseDto;
-import com.legal_guardian_soa_canete_2023.domain.model.LegalGuardian;
+import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianResponseDto;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import com.legal_guardian_soa_canete_2023.service.LegalGuardianService;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Comparator;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")

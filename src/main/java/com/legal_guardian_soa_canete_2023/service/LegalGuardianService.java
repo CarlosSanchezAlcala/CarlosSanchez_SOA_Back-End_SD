@@ -1,7 +1,7 @@
 package com.legal_guardian_soa_canete_2023.service;
 
-import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianRequestDto;
-import com.legal_guardian_soa_canete_2023.domain.dto.LegalGuardianResponseDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianResponseDto;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

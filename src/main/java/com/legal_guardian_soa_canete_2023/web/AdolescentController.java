@@ -1,13 +1,14 @@
 package com.legal_guardian_soa_canete_2023.web;
 
-import com.legal_guardian_soa_canete_2023.domain.model.Adolescent;
+import com.legal_guardian_soa_canete_2023.domain.dto.adolescentDto.AdolescentRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.adolescentDto.AdolescentResponseDto;
 import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
+import com.legal_guardian_soa_canete_2023.service.AdolescentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Comparator;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
@@ -15,8 +16,9 @@ import java.util.Comparator;
 @RequiredArgsConstructor
 public class AdolescentController {
 
-    final
-    AdolescentRepository adolescentRepository;
+    final AdolescentRepository adolescentRepository;
+
+    final AdolescentService adolescentService;
 
     @GetMapping("/infoAdolescent")
     public String informationAdolescent () {
@@ -24,14 +26,14 @@ public class AdolescentController {
     }
 
     @GetMapping("/listData")
-    public Flux<Adolescent> getAdolescent() {
-        return adolescentRepository.findAll()
-                .sort(Comparator.comparing(Adolescent::getId));
+    public Flux<AdolescentResponseDto> getAdolescent() {
+        return this.adolescentService.findAll();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Mono<Adolescent> saveAdolescentData(@RequestBody Adolescent adolescent) {
-        return adolescentRepository.save(adolescent);
+    public Mono<AdolescentResponseDto> saveAdolescentData(@RequestBody AdolescentRequestDto dto) {
+        return this.adolescentService.saveNewAdolescent(dto);
     }
 
 }

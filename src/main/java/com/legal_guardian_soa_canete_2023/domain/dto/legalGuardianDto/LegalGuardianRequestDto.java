@@ -1,15 +1,17 @@
-package com.legal_guardian_soa_canete_2023.domain.dto;
+package com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.relational.core.mapping.Column;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 public class LegalGuardianRequestDto implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 8222253670338491507L;
 
     @Column
