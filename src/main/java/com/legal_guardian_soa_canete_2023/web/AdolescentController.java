@@ -30,6 +30,16 @@ public class AdolescentController {
         return this.adolescentService.findAll();
     }
 
+    @GetMapping("/listData/active")
+    public Flux<AdolescentResponseDto> getAdolescentActive() {
+        return this.adolescentService.findAllActive();
+    }
+
+    @GetMapping("/listData/inactive")
+    public Flux<AdolescentResponseDto> getAdolescentInactive() {
+        return this.adolescentService.findAllInactive();
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Mono<AdolescentResponseDto> saveAdolescentData(@RequestBody AdolescentRequestDto dto) {
