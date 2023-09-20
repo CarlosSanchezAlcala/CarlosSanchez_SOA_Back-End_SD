@@ -30,6 +30,11 @@ public class AdolescentController {
         return this.adolescentService.findAll();
     }
 
+    @GetMapping("/{idAdolescent}")
+    public Mono<AdolescentResponseDto> getAdolescentForId(@PathVariable Integer idAdolescent) {
+        return this.adolescentService.findById(idAdolescent);
+    }
+
     @GetMapping("/listData/active")
     public Flux<AdolescentResponseDto> getAdolescentActive() {
         return this.adolescentService.findAllActive();

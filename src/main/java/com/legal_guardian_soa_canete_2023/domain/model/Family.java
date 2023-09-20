@@ -1,12 +1,16 @@
 package com.legal_guardian_soa_canete_2023.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("family_data")
+@Table(name = "family_data")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Family {
     @Id
     private Integer id;
@@ -26,11 +30,4 @@ public class Family {
         this.description = description;
     }
 
-    public Family(Integer id, Integer idLegalGuardian, Integer idAdolescent, String active, String description) {
-        this.id = id;
-        this.idLegalGuardian = idLegalGuardian;
-        this.idAdolescent = idAdolescent;
-        this.active = active;
-        this.description = description;
-    }
 }
