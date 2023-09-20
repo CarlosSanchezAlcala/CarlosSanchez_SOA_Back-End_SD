@@ -5,6 +5,7 @@ import com.legal_guardian_soa_canete_2023.domain.dto.adolescentDto.AdolescentRes
 import com.legal_guardian_soa_canete_2023.domain.dto.familyDto.FamilyRequestDto;
 import com.legal_guardian_soa_canete_2023.domain.dto.familyDto.FamilyResponseDto;
 import com.legal_guardian_soa_canete_2023.domain.dto.legalGuardianDto.LegalGuardianResponseDto;
+import com.legal_guardian_soa_canete_2023.domain.mapper.FamilyMapper;
 import com.legal_guardian_soa_canete_2023.domain.model.Family;
 import com.legal_guardian_soa_canete_2023.repository.FamilyRepository;
 import com.legal_guardian_soa_canete_2023.service.FamilyService;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Comparator;
+
+import static com.legal_guardian_soa_canete_2023.domain.mapper.FamilyMapper.toModel;
 
 @Slf4j
 @Service
@@ -54,11 +59,14 @@ public class FamilyImpl implements FamilyService {
 
     @Override
     public Flux<FamilyResponseDto> findAll() {
-        return null;
+        return this.familyRepository.findAll()
+                .sort(Comparator.comparing(Family::getId))
+                .map(FamilyMapper::toDto);
     }
 
     @Override
     public Mono<FamilyResponseDto> saveNewFamily(FamilyRequestDto request) {
-        return null;
+        return this.familyRepository.save(toModel(request))
+                .map(FamilyMapper::toDto);
     }
 }

@@ -1,17 +1,15 @@
 package com.legal_guardian_soa_canete_2023.web;
 
 import com.legal_guardian_soa_canete_2023.domain.dto.TransactionalDataDto;
-import com.legal_guardian_soa_canete_2023.domain.model.Family;
-import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
+import com.legal_guardian_soa_canete_2023.domain.dto.familyDto.FamilyRequestDto;
+import com.legal_guardian_soa_canete_2023.domain.dto.familyDto.FamilyResponseDto;
 import com.legal_guardian_soa_canete_2023.repository.FamilyRepository;
-import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import com.legal_guardian_soa_canete_2023.service.FamilyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.Comparator;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
@@ -20,8 +18,7 @@ import java.util.Comparator;
 public class FamilyController {
 
     final FamilyRepository familyRepository;
-    final LegalGuardianRepository legalGuardianRepository;
-    final AdolescentRepository adolescentRepository;
+
     final FamilyService familyService;
 
     @GetMapping("/infoFamily")
@@ -29,19 +26,20 @@ public class FamilyController {
         return "Información completa sobre las familia formadas";
     }
 
+    @GetMapping("/list")
+    public Flux<FamilyResponseDto> getDataFamily() {
+        return this.familyService.findAll();
+    }
+
     @GetMapping("/{idFamilyData}")
     public Mono<TransactionalDataDto> getDataTransactionalFamily(@PathVariable Integer idFamilyData) {
         return familyService.findById(idFamilyData);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Mono<Family> saveNewFamily(@RequestBody Family family) {
-        return familyRepository.save(family);
+    public Mono<FamilyResponseDto> saveNewFamily(@RequestBody FamilyRequestDto dto) {
+        return this.familyService.saveNewFamily(dto);
     }
 
-    @GetMapping("/list/data/family")
-    public Flux<Family> getDataInfoFamily() {
-        return familyRepository.findAll()
-                .sort(Comparator.comparing(Family::getId));
-    }
 }
