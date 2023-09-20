@@ -16,4 +16,21 @@ public class Family {
     private Integer idAdolescent;
     @Column
     private String active;
+    @Column
+    private String description;
+
+    public Family(Integer idLegalGuardian, Integer idAdolescent, String active, String description) {
+        this.idLegalGuardian = idLegalGuardian;
+        this.idAdolescent = idAdolescent;
+        this.active = active;
+        this.description = description;
+    }
+
+    public Family(Integer id, Integer idLegalGuardian, Integer idAdolescent, String active, String description) {
+        this.id = id;
+        this.idLegalGuardian = idLegalGuardian;
+        this.idAdolescent = idAdolescent;
+        this.active = active;
+        this.description = description;
+    }
 }

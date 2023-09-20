@@ -1,7 +1,6 @@
 package com.legal_guardian_soa_canete_2023.web;
 
 import com.legal_guardian_soa_canete_2023.domain.model.Family;
-import com.legal_guardian_soa_canete_2023.domain.model.FamilyDetails;
 import com.legal_guardian_soa_canete_2023.repository.FamilyRepository;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
