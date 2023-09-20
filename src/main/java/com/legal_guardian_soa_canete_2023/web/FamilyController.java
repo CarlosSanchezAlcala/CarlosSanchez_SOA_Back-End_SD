@@ -5,7 +5,6 @@ import com.legal_guardian_soa_canete_2023.domain.model.FamilyDetails;
 import com.legal_guardian_soa_canete_2023.repository.FamilyRepository;
 import com.legal_guardian_soa_canete_2023.repository.LegalGuardianRepository;
 import com.legal_guardian_soa_canete_2023.repository.AdolescentRepository;
-import com.legal_guardian_soa_canete_2023.repository.FamilyDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -22,7 +21,6 @@ public class FamilyController {
     final FamilyRepository familyRepository;
     final LegalGuardianRepository legalGuardianRepository;
     final AdolescentRepository adolescentRepository;
-    final FamilyDetailsRepository familyDetailsRepository;
 
     @GetMapping("/infoFamily")
     public String informationAdolescent() {
@@ -38,11 +36,5 @@ public class FamilyController {
     public Flux<Family> getDataInfoFamily() {
         return familyRepository.findAll()
                 .sort(Comparator.comparing(Family::getId));
-    }
-
-    @GetMapping("/list/dataDetails/familyDetails")
-    public Flux<FamilyDetails> getDataDetailsFamily() {
-        return familyDetailsRepository.findAll()
-                .sort(Comparator.comparing(FamilyDetails::getId));
     }
 }
