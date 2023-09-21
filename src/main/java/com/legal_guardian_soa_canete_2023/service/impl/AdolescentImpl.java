@@ -31,14 +31,14 @@ public class AdolescentImpl implements AdolescentService {
     @Override
     public Flux<AdolescentResponseDto> findAll() {
         return this.adolescentRepository.findAll()
-                .sort(Comparator.comparing(Adolescent::getId))
+                .sort(Comparator.comparing(Adolescent::getId).reversed())
                 .map(AdolescentMapper::toDto);
     }
 
     @Override
     public Flux<AdolescentResponseDto> findAllActive() {
         return this.adolescentRepository.findAll()
-                .sort(Comparator.comparing(Adolescent::getId))
+                .sort(Comparator.comparing(Adolescent::getId).reversed())
                 .filter(active -> active.getActive().equals("A"))
                 .map(AdolescentMapper::toDto);
     }
@@ -46,7 +46,7 @@ public class AdolescentImpl implements AdolescentService {
     @Override
     public Flux<AdolescentResponseDto> findAllInactive() {
         return this.adolescentRepository.findAll()
-                .sort(Comparator.comparing(Adolescent::getId))
+                .sort(Comparator.comparing(Adolescent::getId).reversed())
                 .filter(active -> active.getActive().equals("I"))
                 .map(AdolescentMapper::toDto);
     }

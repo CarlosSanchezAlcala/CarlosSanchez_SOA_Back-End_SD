@@ -31,14 +31,14 @@ public class LegalGuardianImpl implements LegalGuardianService {
     @Override
     public Flux<LegalGuardianResponseDto> findAll() {
         return this.legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(LegalGuardian::getId))
+                .sort(Comparator.comparing(LegalGuardian::getId).reversed())
                 .map(LegalGuardianMapper::toDto);
     }
 
     @Override
     public Flux<LegalGuardianResponseDto> findAllActive() {
         return this.legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(LegalGuardian::getId))
+                .sort(Comparator.comparing(LegalGuardian::getId).reversed())
                 .filter(active -> active.getActive().equals("A"))
                 .map(LegalGuardianMapper::toDto);
     }
@@ -46,7 +46,7 @@ public class LegalGuardianImpl implements LegalGuardianService {
     @Override
     public Flux<LegalGuardianResponseDto> findAllInactive() {
         return this.legalGuardianRepository.findAll()
-                .sort(Comparator.comparing(LegalGuardian::getId))
+                .sort(Comparator.comparing(LegalGuardian::getId).reversed())
                 .filter(inactive -> inactive.getActive().equals("I"))
                 .map(LegalGuardianMapper::toDto);
     }

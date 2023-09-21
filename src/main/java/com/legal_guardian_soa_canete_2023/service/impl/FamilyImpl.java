@@ -60,7 +60,7 @@ public class FamilyImpl implements FamilyService {
     @Override
     public Flux<FamilyResponseDto> findAll() {
         return this.familyRepository.findAll()
-                .sort(Comparator.comparing(Family::getId))
+                .sort(Comparator.comparing(Family::getId).reversed())
                 .map(FamilyMapper::toDto);
     }
 
