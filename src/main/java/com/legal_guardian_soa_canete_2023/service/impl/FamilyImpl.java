@@ -17,8 +17,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Comparator;
-
 import static com.legal_guardian_soa_canete_2023.domain.mapper.FamilyMapper.toModel;
 
 @Slf4j
@@ -58,10 +56,29 @@ public class FamilyImpl implements FamilyService {
     }
 
     @Override
-    public Flux<FamilyResponseDto> findAll() {
-        return this.familyRepository.findAll()
-                .sort(Comparator.comparing(Family::getId).reversed())
-                .map(FamilyMapper::toDto);
+    public Flux<TransactionalDataDto> findAll() {
+        Flux<Family> family = familyRepository.findAll();
+        return family.flatMap(datasFamily -> {
+            Mono<LegalGuardianResponseDto> legalGuardianResponseDto = webClientBuilder.build()
+                    .get()
+                    .uri("http://localhost:8080/api/legalGuardian/" + datasFamily.getIdLegalGuardian())
+                    .retrieve()
+                    .bodyToMono(LegalGuardianResponseDto.class);
+            Mono<AdolescentResponseDto> adolescentResponseDto = webClientBuilder.build()
+                    .get()
+                    .uri("http://localhost:8080/api/adolescentData/" + datasFamily.getIdAdolescent())
+                    .retrieve()
+                    .bodyToMono(AdolescentResponseDto.class);
+            return legalGuardianResponseDto.zipWith(adolescentResponseDto).map(dataGeneral -> {
+                LegalGuardianResponseDto legalGuardianResponseDtoData = dataGeneral.getT1();
+                AdolescentResponseDto adolescentResponseDtoData = dataGeneral.getT2();
+                TransactionalDataDto transactionalDataDto = new TransactionalDataDto();
+                transactionalDataDto.setFamily(datasFamily);
+                transactionalDataDto.setAdolescentResponseDto(adolescentResponseDtoData);
+                transactionalDataDto.setLegalGuardianResponseDto(legalGuardianResponseDtoData);
+                return transactionalDataDto;
+            });
+        });
     }
 
     @Override

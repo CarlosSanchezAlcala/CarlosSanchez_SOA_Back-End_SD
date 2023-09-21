@@ -10,6 +10,6 @@ import reactor.core.publisher.Mono;
 @Service
 public interface FamilyService {
     Mono<TransactionalDataDto> findById(Integer id);
-    Flux<FamilyResponseDto> findAll();
+    Flux<TransactionalDataDto> findAll();
     Mono<FamilyResponseDto> saveNewFamily(FamilyRequestDto request);
 }

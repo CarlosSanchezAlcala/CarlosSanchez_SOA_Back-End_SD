@@ -27,7 +27,7 @@ public class FamilyController {
     }
 
     @GetMapping("/list")
-    public Flux<FamilyResponseDto> getDataFamily() {
+    public Flux<TransactionalDataDto> getDataFamily() {
         return this.familyService.findAll();
     }
 
